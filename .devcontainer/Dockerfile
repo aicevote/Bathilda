@@ -64,16 +64,17 @@ RUN apt-get update \
     && curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin 2>&1 \
     #
     # Install Protocol Buffers
-    && apt-get -y install autoconf automake libtool curl make g++ unzip \
-    && git clone https://github.com/protocolbuffers/protobuf.git \
+    && apt-get -y install git unzip build-essential autoconf libtool \
+    && git clone https://github.com/google/protobuf.git \
     && cd protobuf \
-    && git submodule update --init --recursive \
     && ./autogen.sh \
     && ./configure \
     && make \
-    && make check \
     && make install \
     && ldconfig \
+    && make clean \
+    && cd .. \
+    && rm -r protobuf \
     #
     # Create a non-root user to use if preferred - see https://aka.ms/vscode-remote/containers/non-root-user.
     && groupadd --gid $USER_GID $USERNAME \
