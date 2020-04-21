@@ -70,11 +70,13 @@ RUN apt-get update \
     && ./autogen.sh \
     && ./configure \
     && make \
-    && make install \
+    && make install \go get github.com/golang/protobuf/protoc-gen-go
     && ldconfig \
     && make clean \
     && cd .. \
     && rm -r protobuf \
+    && go get google.golang.org/grpc
+    && go get github.com/golang/protobuf/protoc-gen-go
     #
     # Create a non-root user to use if preferred - see https://aka.ms/vscode-remote/containers/non-root-user.
     && groupadd --gid $USER_GID $USERNAME \
