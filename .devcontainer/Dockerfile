@@ -70,7 +70,7 @@ RUN apt-get update \
     && ./autogen.sh \
     && ./configure \
     && make \
-    && make install \go get github.com/golang/protobuf/protoc-gen-go \
+    && make install \
     && ldconfig \
     && make clean \
     && cd .. \
