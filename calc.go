@@ -4,8 +4,9 @@ import (
 	"math"
 )
 
-func formula(val float64) float64 {
-	val /= 21600000
+// [2400, 7200, 21600, 64800, 194400] * 1000
+func formula(val float64, meltingRate int) float64 {
+	val /= float64(meltingRate)
 
 	return (4*val + 5) / (val*val + 4*val + 5)
 }
@@ -18,7 +19,7 @@ func calcResult(votes []vote, theme theme, milliseconds int) []float64 {
 		if vote.ThemeID == theme.ThemeID &&
 			milliseconds >= vote.CreatedAt &&
 			(vote.ExpiredAt == 0 || vote.ExpiredAt > milliseconds) {
-			point := formula(float64(milliseconds - vote.CreatedAt))
+			point := formula(float64(milliseconds-vote.CreatedAt), theme.MeltingRate)
 			points[vote.Answer] += point
 			sumOfPoints += point
 		}

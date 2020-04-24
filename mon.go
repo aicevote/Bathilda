@@ -19,6 +19,7 @@ type theme struct {
 	Keywords     []string
 	Formula      string
 	SaveInterval int
+	MeltingRate  int
 }
 
 type vote struct {
